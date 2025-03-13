@@ -1,0 +1,402 @@
+Dependencies for Project 'ble_simple_peripheral', Target 'ble_simple_peripheral': (DO NOT MODIFY !)
+F (..\code\proj_main.c)(0x677E29FD)(--c99 -c --cpu Cortex-M3 -D__MICROLIB --li -g -O0 --apcs=interwork --split_sections -I ..\..\..\..\components\ble\include -I ..\..\..\..\components\driver\include -I ..\..\..\..\components\driver\drv_common -I ..\..\..\..\components\modules\os\include -I ..\..\..\..\components\modules\sys\include -I ..\..\..\..\components\modules\platform\include -I ..\..\..\..\components\modules\platform\include\cmsis -I ..\..\..\..\components\modules\common\include -I ..\..\..\..\components\modules\lowpow\include -I ..\..\..\..\components\modules\button -I ..\..\..\..\components\ble\include\gap -I ..\..\..\..\components\ble\include\gatt -I ..\..\..\..\components\ble\profiles\ble_simple_profile -I ..\code -I ..\..\..\..\components\modules\RTT --preinclude app_config.h-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="523"-o .\objects\proj_main.o --omf_browse .\objects\proj_main.crf --depend .\objects\proj_main.d)
+I (..\code\app_config.h)(0x6780A429)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x57F606B8)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x57F606B8)
+I (..\..\..\..\components\ble\include\gap\gap_api.h)(0x66D6B60F)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
+I (..\..\..\..\components\ble\include\ble_stack.h)(0x649CDABE)
+I (..\..\..\..\components\ble\include\gatt\gatt_api.h)(0x66D6B615)
+I (..\..\..\..\components\modules\os\include\os_msg_q.h)(0x66D6B66B)
+I (..\..\..\..\components\modules\platform\include\jump_table.h)(0x649CDABF)
+I (..\..\..\..\components\modules\common\include\co_math.h)(0x649CDABE)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)
+I (..\..\..\..\components\modules\platform\include\plf.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\core_cm3.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_version.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_compiler.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_armcc.h)(0x649CDABF)
+I (..\..\..\..\components\modules\common\include\co_log.h)(0x6760D714)
+I (..\..\..\..\components\modules\common\include\co_printf.h)(0x649CDABE)
+I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x57F606B8)
+I (..\..\..\..\components\driver\include\driver_system.h)(0x649CDABE)
+I (..\..\..\..\components\driver\include\driver_pmu.h)(0x66D6B789)
+I (..\..\..\..\components\driver\include\driver_frspim.h)(0x649CDABE)
+I (..\..\..\..\components\driver\include\driver_efuse.h)(0x66D6B765)
+I (..\..\..\..\components\driver\include\driver_flash.h)(0x649CDABE)
+I (..\..\..\..\components\modules\sys\include\sys_utils.h)(0x649CDABF)
+I (..\..\..\..\components\driver\include\driver_uart.h)(0x649CDABE)
+I (..\..\..\..\components\driver\drv_common\drv_common_types.h)(0x649CDABE)
+I (..\..\..\..\components\driver\include\driver_gpio.h)(0x66D6B765)
+I (..\..\..\..\components\driver\include\driver_adc.h)(0x66D6B765)
+I (..\..\..\..\components\driver\include\driver_pwm.h)(0x66D6B79D)
+I (..\..\..\..\components\driver\include\driver_i2c.h)(0x66D6B77A)
+I (..\code\ble_simple_peripheral.h)(0x677F3298)
+I (..\..\..\..\components\ble\include\gatt\gatt_sig_uuid.h)(0x66D6B62E)
+I (..\code\key_control.h)(0x675FBF5A)
+I (..\code\led_control.h)(0x66D6B692)
+I (..\code\temp_control.h)(0x677CDC0A)
+I (..\code\voltage_detect.h)(0x6760D883)
+I (..\code\currency_detect.h)(0x677CF73B)
+I (..\code\bat_detect.h)(0x677E2CE0)
+I (..\..\..\..\components\driver\include\driver_timer.h)(0x66D6B79D)
+F (..\code\ble_simple_peripheral.c)(0x677F402E)(--c99 -c --cpu Cortex-M3 -D__MICROLIB --li -g -O0 --apcs=interwork --split_sections -I ..\..\..\..\components\ble\include -I ..\..\..\..\components\driver\include -I ..\..\..\..\components\driver\drv_common -I ..\..\..\..\components\modules\os\include -I ..\..\..\..\components\modules\sys\include -I ..\..\..\..\components\modules\platform\include -I ..\..\..\..\components\modules\platform\include\cmsis -I ..\..\..\..\components\modules\common\include -I ..\..\..\..\components\modules\lowpow\include -I ..\..\..\..\components\modules\button -I ..\..\..\..\components\ble\include\gap -I ..\..\..\..\components\ble\include\gatt -I ..\..\..\..\components\ble\profiles\ble_simple_profile -I ..\code -I ..\..\..\..\components\modules\RTT --preinclude app_config.h-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="523"-o .\objects\ble_simple_peripheral.o --omf_browse .\objects\ble_simple_peripheral.crf --depend .\objects\ble_simple_peripheral.d)
+I (..\code\app_config.h)(0x6780A429)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
+I (..\..\..\..\components\modules\common\include\co_log.h)(0x6760D714)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
+I (..\..\..\..\components\modules\common\include\co_printf.h)(0x649CDABE)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x57F606B8)
+I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x57F606B8)
+I (..\..\..\..\components\modules\platform\include\plf.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\core_cm3.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_version.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_compiler.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_armcc.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\jump_table.h)(0x649CDABF)
+I (..\..\..\..\components\modules\common\include\co_math.h)(0x649CDABE)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)
+I (..\..\..\..\components\modules\os\include\os_mem.h)(0x66D6B66B)
+I (..\..\..\..\components\ble\include\gap\gap_api.h)(0x66D6B60F)
+I (..\..\..\..\components\ble\include\ble_stack.h)(0x649CDABE)
+I (..\..\..\..\components\ble\include\gatt\gatt_api.h)(0x66D6B615)
+I (..\..\..\..\components\modules\os\include\os_msg_q.h)(0x66D6B66B)
+I (..\code\ble_simple_peripheral.h)(0x677F3298)
+I (..\..\..\..\components\ble\include\gatt\gatt_sig_uuid.h)(0x66D6B62E)
+I (..\code\protocol.h)(0x67778D78)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x57F606B8)
+I (..\code\temp_control.h)(0x677CDC0A)
+I (..\code\led_control.h)(0x66D6B692)
+I (..\..\..\..\components\driver\include\driver_i2c.h)(0x66D6B77A)
+I (..\code\voltage_detect.h)(0x6760D883)
+I (..\code\currency_detect.h)(0x677CF73B)
+I (..\..\..\..\components\driver\include\driver_flash.h)(0x649CDABE)
+I (..\code\bat_detect.h)(0x677E2CE0)
+I (..\..\..\..\components\driver\include\driver_timer.h)(0x66D6B79D)
+F (..\code\led_control.c)(0x677CC134)(--c99 -c --cpu Cortex-M3 -D__MICROLIB --li -g -O0 --apcs=interwork --split_sections -I ..\..\..\..\components\ble\include -I ..\..\..\..\components\driver\include -I ..\..\..\..\components\driver\drv_common -I ..\..\..\..\components\modules\os\include -I ..\..\..\..\components\modules\sys\include -I ..\..\..\..\components\modules\platform\include -I ..\..\..\..\components\modules\platform\include\cmsis -I ..\..\..\..\components\modules\common\include -I ..\..\..\..\components\modules\lowpow\include -I ..\..\..\..\components\modules\button -I ..\..\..\..\components\ble\include\gap -I ..\..\..\..\components\ble\include\gatt -I ..\..\..\..\components\ble\profiles\ble_simple_profile -I ..\code -I ..\..\..\..\components\modules\RTT --preinclude app_config.h-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="523"-o .\objects\led_control.o --omf_browse .\objects\led_control.crf --depend .\objects\led_control.d)
+I (..\code\app_config.h)(0x6780A429)
+I (..\code\led_control.h)(0x66D6B692)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x57F606B8)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x57F606B8)
+I (..\..\..\..\components\driver\include\driver_i2c.h)(0x66D6B77A)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
+I (..\..\..\..\components\modules\platform\include\plf.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\core_cm3.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_version.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_compiler.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_armcc.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\jump_table.h)(0x649CDABF)
+I (..\..\..\..\components\modules\common\include\co_math.h)(0x649CDABE)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)
+I (..\..\..\..\components\driver\include\driver_gpio.h)(0x66D6B765)
+I (..\..\..\..\components\driver\include\driver_system.h)(0x649CDABE)
+I (..\..\..\..\components\driver\include\driver_pmu.h)(0x66D6B789)
+I (..\..\..\..\components\driver\include\driver_frspim.h)(0x649CDABE)
+I (..\..\..\..\components\driver\include\driver_efuse.h)(0x66D6B765)
+I (..\..\..\..\components\driver\include\driver_flash.h)(0x649CDABE)
+I (..\..\..\..\components\modules\sys\include\sys_utils.h)(0x649CDABF)
+I (..\..\..\..\components\modules\common\include\co_printf.h)(0x649CDABE)
+I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x57F606B8)
+I (..\..\..\..\components\ble\include\ble_stack.h)(0x649CDABE)
+F (..\code\temp_control.c)(0x67416E64)(--c99 -c --cpu Cortex-M3 -D__MICROLIB --li -g -O0 --apcs=interwork --split_sections -I ..\..\..\..\components\ble\include -I ..\..\..\..\components\driver\include -I ..\..\..\..\components\driver\drv_common -I ..\..\..\..\components\modules\os\include -I ..\..\..\..\components\modules\sys\include -I ..\..\..\..\components\modules\platform\include -I ..\..\..\..\components\modules\platform\include\cmsis -I ..\..\..\..\components\modules\common\include -I ..\..\..\..\components\modules\lowpow\include -I ..\..\..\..\components\modules\button -I ..\..\..\..\components\ble\include\gap -I ..\..\..\..\components\ble\include\gatt -I ..\..\..\..\components\ble\profiles\ble_simple_profile -I ..\code -I ..\..\..\..\components\modules\RTT --preinclude app_config.h-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="523"-o .\objects\temp_control.o --omf_browse .\objects\temp_control.crf --depend .\objects\temp_control.d)
+I (..\code\app_config.h)(0x6780A429)
+I (..\code\temp_control.h)(0x677CDC0A)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x57F606B8)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x57F606B8)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
+I (..\..\..\..\components\driver\include\driver_gpio.h)(0x66D6B765)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
+I (..\..\..\..\components\driver\include\driver_system.h)(0x649CDABE)
+I (..\..\..\..\components\modules\platform\include\plf.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\core_cm3.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_version.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_compiler.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_armcc.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\jump_table.h)(0x649CDABF)
+I (..\..\..\..\components\modules\common\include\co_math.h)(0x649CDABE)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)
+I (..\..\..\..\components\driver\include\driver_pmu.h)(0x66D6B789)
+I (..\..\..\..\components\driver\include\driver_frspim.h)(0x649CDABE)
+I (..\..\..\..\components\driver\include\driver_efuse.h)(0x66D6B765)
+I (..\..\..\..\components\driver\include\driver_flash.h)(0x649CDABE)
+I (..\..\..\..\components\modules\sys\include\sys_utils.h)(0x649CDABF)
+I (..\..\..\..\components\modules\common\include\co_printf.h)(0x649CDABE)
+I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x57F606B8)
+I (..\..\..\..\components\driver\include\driver_adc.h)(0x66D6B765)
+I (..\..\..\..\components\driver\include\driver_pwm.h)(0x66D6B79D)
+I (..\code\led_control.h)(0x66D6B692)
+I (..\..\..\..\components\driver\include\driver_i2c.h)(0x66D6B77A)
+I (..\..\..\..\components\modules\os\include\os_timer.h)(0x66D6B66B)
+F (..\code\voltage_detect.c)(0x677F44A6)(--c99 -c --cpu Cortex-M3 -D__MICROLIB --li -g -O0 --apcs=interwork --split_sections -I ..\..\..\..\components\ble\include -I ..\..\..\..\components\driver\include -I ..\..\..\..\components\driver\drv_common -I ..\..\..\..\components\modules\os\include -I ..\..\..\..\components\modules\sys\include -I ..\..\..\..\components\modules\platform\include -I ..\..\..\..\components\modules\platform\include\cmsis -I ..\..\..\..\components\modules\common\include -I ..\..\..\..\components\modules\lowpow\include -I ..\..\..\..\components\modules\button -I ..\..\..\..\components\ble\include\gap -I ..\..\..\..\components\ble\include\gatt -I ..\..\..\..\components\ble\profiles\ble_simple_profile -I ..\code -I ..\..\..\..\components\modules\RTT --preinclude app_config.h-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="523"-o .\objects\voltage_detect.o --omf_browse .\objects\voltage_detect.crf --depend .\objects\voltage_detect.d)
+I (..\code\app_config.h)(0x6780A429)
+I (..\code\voltage_detect.h)(0x6760D883)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
+I (..\..\..\..\components\driver\include\driver_adc.h)(0x66D6B765)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
+I (..\..\..\..\components\driver\include\driver_pmu.h)(0x66D6B789)
+I (..\..\..\..\components\driver\include\driver_frspim.h)(0x649CDABE)
+I (..\..\..\..\components\driver\include\driver_system.h)(0x649CDABE)
+I (..\..\..\..\components\modules\platform\include\plf.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\core_cm3.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_version.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_compiler.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_armcc.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\jump_table.h)(0x649CDABF)
+I (..\..\..\..\components\modules\common\include\co_math.h)(0x649CDABE)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)
+I (..\..\..\..\components\driver\include\driver_efuse.h)(0x66D6B765)
+I (..\..\..\..\components\driver\include\driver_flash.h)(0x649CDABE)
+I (..\..\..\..\components\modules\sys\include\sys_utils.h)(0x649CDABF)
+I (..\..\..\..\components\modules\common\include\co_printf.h)(0x649CDABE)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x57F606B8)
+I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x57F606B8)
+I (..\..\..\..\components\modules\os\include\os_timer.h)(0x66D6B66B)
+I (..\code\temp_control.h)(0x677CDC0A)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x57F606B8)
+I (..\..\..\..\components\driver\include\driver_pwm.h)(0x66D6B79D)
+F (..\code\key_control.c)(0x675FBF5F)(--c99 -c --cpu Cortex-M3 -D__MICROLIB --li -g -O0 --apcs=interwork --split_sections -I ..\..\..\..\components\ble\include -I ..\..\..\..\components\driver\include -I ..\..\..\..\components\driver\drv_common -I ..\..\..\..\components\modules\os\include -I ..\..\..\..\components\modules\sys\include -I ..\..\..\..\components\modules\platform\include -I ..\..\..\..\components\modules\platform\include\cmsis -I ..\..\..\..\components\modules\common\include -I ..\..\..\..\components\modules\lowpow\include -I ..\..\..\..\components\modules\button -I ..\..\..\..\components\ble\include\gap -I ..\..\..\..\components\ble\include\gatt -I ..\..\..\..\components\ble\profiles\ble_simple_profile -I ..\code -I ..\..\..\..\components\modules\RTT --preinclude app_config.h-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="523"-o .\objects\key_control.o --omf_browse .\objects\key_control.crf --depend .\objects\key_control.d)
+I (..\code\app_config.h)(0x6780A429)
+I (..\code\key_control.h)(0x675FBF5A)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
+I (..\..\..\..\components\driver\include\driver_gpio.h)(0x66D6B765)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
+I (..\..\..\..\components\driver\include\driver_system.h)(0x649CDABE)
+I (..\..\..\..\components\modules\platform\include\plf.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\core_cm3.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_version.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_compiler.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_armcc.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\jump_table.h)(0x649CDABF)
+I (..\..\..\..\components\modules\common\include\co_math.h)(0x649CDABE)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)
+I (..\..\..\..\components\driver\include\driver_pmu.h)(0x66D6B789)
+I (..\..\..\..\components\driver\include\driver_frspim.h)(0x649CDABE)
+I (..\..\..\..\components\driver\include\driver_efuse.h)(0x66D6B765)
+I (..\..\..\..\components\driver\include\driver_flash.h)(0x649CDABE)
+I (..\..\..\..\components\modules\sys\include\sys_utils.h)(0x649CDABF)
+I (..\..\..\..\components\modules\common\include\co_printf.h)(0x649CDABE)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x57F606B8)
+I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x57F606B8)
+I (..\code\ble_simple_peripheral.h)(0x677F3298)
+I (..\..\..\..\components\ble\include\gap\gap_api.h)(0x66D6B60F)
+I (..\..\..\..\components\ble\include\ble_stack.h)(0x649CDABE)
+I (..\..\..\..\components\ble\include\gatt\gatt_api.h)(0x66D6B615)
+I (..\..\..\..\components\modules\os\include\os_msg_q.h)(0x66D6B66B)
+I (..\..\..\..\components\ble\include\gatt\gatt_sig_uuid.h)(0x66D6B62E)
+I (..\..\..\..\components\modules\os\include\os_timer.h)(0x66D6B66B)
+F (..\code\currency_detect.c)(0x6780A3F3)(--c99 -c --cpu Cortex-M3 -D__MICROLIB --li -g -O0 --apcs=interwork --split_sections -I ..\..\..\..\components\ble\include -I ..\..\..\..\components\driver\include -I ..\..\..\..\components\driver\drv_common -I ..\..\..\..\components\modules\os\include -I ..\..\..\..\components\modules\sys\include -I ..\..\..\..\components\modules\platform\include -I ..\..\..\..\components\modules\platform\include\cmsis -I ..\..\..\..\components\modules\common\include -I ..\..\..\..\components\modules\lowpow\include -I ..\..\..\..\components\modules\button -I ..\..\..\..\components\ble\include\gap -I ..\..\..\..\components\ble\include\gatt -I ..\..\..\..\components\ble\profiles\ble_simple_profile -I ..\code -I ..\..\..\..\components\modules\RTT --preinclude app_config.h-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="523"-o .\objects\currency_detect.o --omf_browse .\objects\currency_detect.crf --depend .\objects\currency_detect.d)
+I (..\code\app_config.h)(0x6780A429)
+I (..\code\currency_detect.h)(0x677CF73B)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
+I (..\..\..\..\components\driver\include\driver_adc.h)(0x66D6B765)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
+I (..\..\..\..\components\driver\include\driver_pmu.h)(0x66D6B789)
+I (..\..\..\..\components\driver\include\driver_frspim.h)(0x649CDABE)
+I (..\..\..\..\components\driver\include\driver_system.h)(0x649CDABE)
+I (..\..\..\..\components\modules\platform\include\plf.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\core_cm3.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_version.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_compiler.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_armcc.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\jump_table.h)(0x649CDABF)
+I (..\..\..\..\components\modules\common\include\co_math.h)(0x649CDABE)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)
+I (..\..\..\..\components\driver\include\driver_efuse.h)(0x66D6B765)
+I (..\..\..\..\components\driver\include\driver_flash.h)(0x649CDABE)
+I (..\..\..\..\components\modules\sys\include\sys_utils.h)(0x649CDABF)
+I (..\..\..\..\components\modules\common\include\co_printf.h)(0x649CDABE)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x57F606B8)
+I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x57F606B8)
+I (..\..\..\..\components\modules\os\include\os_timer.h)(0x66D6B66B)
+I (..\code\temp_control.h)(0x677CDC0A)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x57F606B8)
+I (..\..\..\..\components\modules\common\include\co_log.h)(0x6760D714)
+I (..\code\ble_simple_peripheral.h)(0x677F3298)
+I (..\..\..\..\components\ble\include\gap\gap_api.h)(0x66D6B60F)
+I (..\..\..\..\components\ble\include\ble_stack.h)(0x649CDABE)
+I (..\..\..\..\components\ble\include\gatt\gatt_api.h)(0x66D6B615)
+I (..\..\..\..\components\modules\os\include\os_msg_q.h)(0x66D6B66B)
+I (..\..\..\..\components\ble\include\gatt\gatt_sig_uuid.h)(0x66D6B62E)
+F (..\code\bat_detect.c)(0x677F43E4)(--c99 -c --cpu Cortex-M3 -D__MICROLIB --li -g -O0 --apcs=interwork --split_sections -I ..\..\..\..\components\ble\include -I ..\..\..\..\components\driver\include -I ..\..\..\..\components\driver\drv_common -I ..\..\..\..\components\modules\os\include -I ..\..\..\..\components\modules\sys\include -I ..\..\..\..\components\modules\platform\include -I ..\..\..\..\components\modules\platform\include\cmsis -I ..\..\..\..\components\modules\common\include -I ..\..\..\..\components\modules\lowpow\include -I ..\..\..\..\components\modules\button -I ..\..\..\..\components\ble\include\gap -I ..\..\..\..\components\ble\include\gatt -I ..\..\..\..\components\ble\profiles\ble_simple_profile -I ..\code -I ..\..\..\..\components\modules\RTT --preinclude app_config.h-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="523"-o .\objects\bat_detect.o --omf_browse .\objects\bat_detect.crf --depend .\objects\bat_detect.d)
+I (..\code\app_config.h)(0x6780A429)
+I (..\code\bat_detect.h)(0x677E2CE0)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x57F606B8)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
+I (..\..\..\..\components\driver\include\driver_timer.h)(0x66D6B79D)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
+I (..\..\..\..\components\modules\platform\include\plf.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\core_cm3.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_version.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_compiler.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_armcc.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\jump_table.h)(0x649CDABF)
+I (..\..\..\..\components\modules\common\include\co_math.h)(0x649CDABE)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)
+I (..\..\..\..\components\driver\include\driver_pmu.h)(0x66D6B789)
+I (..\..\..\..\components\driver\include\driver_frspim.h)(0x649CDABE)
+I (..\..\..\..\components\driver\include\driver_system.h)(0x649CDABE)
+I (..\..\..\..\components\driver\include\driver_efuse.h)(0x66D6B765)
+I (..\..\..\..\components\driver\include\driver_flash.h)(0x649CDABE)
+I (..\..\..\..\components\modules\sys\include\sys_utils.h)(0x649CDABF)
+I (..\..\..\..\components\modules\common\include\co_printf.h)(0x649CDABE)
+I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x57F606B8)
+I (..\..\..\..\components\driver\include\driver_gpio.h)(0x66D6B765)
+I (..\..\..\..\components\modules\common\include\co_log.h)(0x6760D714)
+F (..\..\..\..\components\driver\driver_pmu.c)(0x6760D708)(--c99 -c --cpu Cortex-M3 -D__MICROLIB --li -g -O0 --apcs=interwork --split_sections -I ..\..\..\..\components\ble\include -I ..\..\..\..\components\driver\include -I ..\..\..\..\components\driver\drv_common -I ..\..\..\..\components\modules\os\include -I ..\..\..\..\components\modules\sys\include -I ..\..\..\..\components\modules\platform\include -I ..\..\..\..\components\modules\platform\include\cmsis -I ..\..\..\..\components\modules\common\include -I ..\..\..\..\components\modules\lowpow\include -I ..\..\..\..\components\modules\button -I ..\..\..\..\components\ble\include\gap -I ..\..\..\..\components\ble\include\gatt -I ..\..\..\..\components\ble\profiles\ble_simple_profile -I ..\code -I ..\..\..\..\components\modules\RTT --preinclude app_config.h-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="523"-o .\objects\driver_pmu.o --omf_browse .\objects\driver_pmu.crf --depend .\objects\driver_pmu.d)
+I (..\code\app_config.h)(0x6780A429)
+I (..\..\..\..\components\driver\include\driver_pmu.h)(0x66D6B789)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
+I (..\..\..\..\components\driver\include\driver_frspim.h)(0x649CDABE)
+I (..\..\..\..\components\driver\include\driver_system.h)(0x649CDABE)
+I (..\..\..\..\components\modules\platform\include\plf.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\core_cm3.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_version.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_compiler.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_armcc.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\jump_table.h)(0x649CDABF)
+I (..\..\..\..\components\modules\common\include\co_math.h)(0x649CDABE)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)
+I (..\..\..\..\components\driver\include\driver_efuse.h)(0x66D6B765)
+I (..\..\..\..\components\driver\include\driver_flash.h)(0x649CDABE)
+I (..\..\..\..\components\modules\sys\include\sys_utils.h)(0x649CDABF)
+I (..\..\..\..\components\modules\common\include\co_printf.h)(0x649CDABE)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x57F606B8)
+I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x57F606B8)
+I (..\..\..\..\components\modules\common\include\co_log.h)(0x6760D714)
+F (..\..\..\..\components\driver\driver_adc.c)(0x66D6B6B5)(--c99 -c --cpu Cortex-M3 -D__MICROLIB --li -g -O0 --apcs=interwork --split_sections -I ..\..\..\..\components\ble\include -I ..\..\..\..\components\driver\include -I ..\..\..\..\components\driver\drv_common -I ..\..\..\..\components\modules\os\include -I ..\..\..\..\components\modules\sys\include -I ..\..\..\..\components\modules\platform\include -I ..\..\..\..\components\modules\platform\include\cmsis -I ..\..\..\..\components\modules\common\include -I ..\..\..\..\components\modules\lowpow\include -I ..\..\..\..\components\modules\button -I ..\..\..\..\components\ble\include\gap -I ..\..\..\..\components\ble\include\gatt -I ..\..\..\..\components\ble\profiles\ble_simple_profile -I ..\code -I ..\..\..\..\components\modules\RTT --preinclude app_config.h-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="523"-o .\objects\driver_adc.o --omf_browse .\objects\driver_adc.crf --depend .\objects\driver_adc.d)
+I (..\code\app_config.h)(0x6780A429)
+I (..\..\..\..\components\driver\include\driver_adc.h)(0x66D6B765)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
+I (..\..\..\..\components\driver\include\driver_pmu.h)(0x66D6B789)
+I (..\..\..\..\components\driver\include\driver_frspim.h)(0x649CDABE)
+I (..\..\..\..\components\driver\include\driver_system.h)(0x649CDABE)
+I (..\..\..\..\components\modules\platform\include\plf.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\core_cm3.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_version.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_compiler.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_armcc.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\jump_table.h)(0x649CDABF)
+I (..\..\..\..\components\modules\common\include\co_math.h)(0x649CDABE)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)
+I (..\..\..\..\components\driver\include\driver_efuse.h)(0x66D6B765)
+I (..\..\..\..\components\driver\include\driver_flash.h)(0x649CDABE)
+I (..\..\..\..\components\modules\sys\include\sys_utils.h)(0x649CDABF)
+I (..\..\..\..\components\modules\common\include\co_printf.h)(0x649CDABE)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x57F606B8)
+I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x57F606B8)
+F (..\..\..\..\components\driver\driver_gpio.c)(0x66D6B6CC)(--c99 -c --cpu Cortex-M3 -D__MICROLIB --li -g -O0 --apcs=interwork --split_sections -I ..\..\..\..\components\ble\include -I ..\..\..\..\components\driver\include -I ..\..\..\..\components\driver\drv_common -I ..\..\..\..\components\modules\os\include -I ..\..\..\..\components\modules\sys\include -I ..\..\..\..\components\modules\platform\include -I ..\..\..\..\components\modules\platform\include\cmsis -I ..\..\..\..\components\modules\common\include -I ..\..\..\..\components\modules\lowpow\include -I ..\..\..\..\components\modules\button -I ..\..\..\..\components\ble\include\gap -I ..\..\..\..\components\ble\include\gatt -I ..\..\..\..\components\ble\profiles\ble_simple_profile -I ..\code -I ..\..\..\..\components\modules\RTT --preinclude app_config.h-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="523"-o .\objects\driver_gpio.o --omf_browse .\objects\driver_gpio.crf --depend .\objects\driver_gpio.d)
+I (..\code\app_config.h)(0x6780A429)
+I (..\..\..\..\components\driver\include\driver_gpio.h)(0x66D6B765)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
+I (..\..\..\..\components\driver\include\driver_system.h)(0x649CDABE)
+I (..\..\..\..\components\modules\platform\include\plf.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\core_cm3.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_version.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_compiler.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_armcc.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\jump_table.h)(0x649CDABF)
+I (..\..\..\..\components\modules\common\include\co_math.h)(0x649CDABE)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)
+F (..\..\..\..\components\driver\driver_i2c.c)(0x66D6B6D5)(--c99 -c --cpu Cortex-M3 -D__MICROLIB --li -g -O0 --apcs=interwork --split_sections -I ..\..\..\..\components\ble\include -I ..\..\..\..\components\driver\include -I ..\..\..\..\components\driver\drv_common -I ..\..\..\..\components\modules\os\include -I ..\..\..\..\components\modules\sys\include -I ..\..\..\..\components\modules\platform\include -I ..\..\..\..\components\modules\platform\include\cmsis -I ..\..\..\..\components\modules\common\include -I ..\..\..\..\components\modules\lowpow\include -I ..\..\..\..\components\modules\button -I ..\..\..\..\components\ble\include\gap -I ..\..\..\..\components\ble\include\gatt -I ..\..\..\..\components\ble\profiles\ble_simple_profile -I ..\code -I ..\..\..\..\components\modules\RTT --preinclude app_config.h-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="523"-o .\objects\driver_i2c.o --omf_browse .\objects\driver_i2c.crf --depend .\objects\driver_i2c.d)
+I (..\code\app_config.h)(0x6780A429)
+I (..\..\..\..\components\driver\include\driver_i2c.h)(0x66D6B77A)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
+I (..\..\..\..\components\modules\platform\include\plf.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\core_cm3.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_version.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_compiler.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_armcc.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\jump_table.h)(0x649CDABF)
+I (..\..\..\..\components\modules\common\include\co_math.h)(0x649CDABE)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)
+F (..\..\..\..\components\driver\driver_pwm.c)(0x67414E65)(--c99 -c --cpu Cortex-M3 -D__MICROLIB --li -g -O0 --apcs=interwork --split_sections -I ..\..\..\..\components\ble\include -I ..\..\..\..\components\driver\include -I ..\..\..\..\components\driver\drv_common -I ..\..\..\..\components\modules\os\include -I ..\..\..\..\components\modules\sys\include -I ..\..\..\..\components\modules\platform\include -I ..\..\..\..\components\modules\platform\include\cmsis -I ..\..\..\..\components\modules\common\include -I ..\..\..\..\components\modules\lowpow\include -I ..\..\..\..\components\modules\button -I ..\..\..\..\components\ble\include\gap -I ..\..\..\..\components\ble\include\gatt -I ..\..\..\..\components\ble\profiles\ble_simple_profile -I ..\code -I ..\..\..\..\components\modules\RTT --preinclude app_config.h-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="523"-o .\objects\driver_pwm.o --omf_browse .\objects\driver_pwm.crf --depend .\objects\driver_pwm.d)
+I (..\code\app_config.h)(0x6780A429)
+I (..\..\..\..\components\driver\include\driver_pwm.h)(0x66D6B79D)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
+I (..\..\..\..\components\modules\platform\include\plf.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\core_cm3.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_version.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_compiler.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_armcc.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\jump_table.h)(0x649CDABF)
+I (..\..\..\..\components\modules\common\include\co_math.h)(0x649CDABE)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)
+F (..\..\..\..\components\driver\driver_spi_master.c)(0x66D6B72B)(--c99 -c --cpu Cortex-M3 -D__MICROLIB --li -g -O0 --apcs=interwork --split_sections -I ..\..\..\..\components\ble\include -I ..\..\..\..\components\driver\include -I ..\..\..\..\components\driver\drv_common -I ..\..\..\..\components\modules\os\include -I ..\..\..\..\components\modules\sys\include -I ..\..\..\..\components\modules\platform\include -I ..\..\..\..\components\modules\platform\include\cmsis -I ..\..\..\..\components\modules\common\include -I ..\..\..\..\components\modules\lowpow\include -I ..\..\..\..\components\modules\button -I ..\..\..\..\components\ble\include\gap -I ..\..\..\..\components\ble\include\gatt -I ..\..\..\..\components\ble\profiles\ble_simple_profile -I ..\code -I ..\..\..\..\components\modules\RTT --preinclude app_config.h-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="523"-o .\objects\driver_spi_master.o --omf_browse .\objects\driver_spi_master.crf --depend .\objects\driver_spi_master.d)
+I (..\code\app_config.h)(0x6780A429)
+I (..\..\..\..\components\driver\include\driver_spi.h)(0x66D6B79D)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
+I (..\..\..\..\components\modules\platform\include\plf.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\core_cm3.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_version.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_compiler.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_armcc.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\jump_table.h)(0x649CDABF)
+I (..\..\..\..\components\modules\common\include\co_math.h)(0x649CDABE)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)
+F (..\..\..\..\components\driver\driver_flash.c)(0x66D6B6CB)(--c99 -c --cpu Cortex-M3 -D__MICROLIB --li -g -O0 --apcs=interwork --split_sections -I ..\..\..\..\components\ble\include -I ..\..\..\..\components\driver\include -I ..\..\..\..\components\driver\drv_common -I ..\..\..\..\components\modules\os\include -I ..\..\..\..\components\modules\sys\include -I ..\..\..\..\components\modules\platform\include -I ..\..\..\..\components\modules\platform\include\cmsis -I ..\..\..\..\components\modules\common\include -I ..\..\..\..\components\modules\lowpow\include -I ..\..\..\..\components\modules\button -I ..\..\..\..\components\ble\include\gap -I ..\..\..\..\components\ble\include\gatt -I ..\..\..\..\components\ble\profiles\ble_simple_profile -I ..\code -I ..\..\..\..\components\modules\RTT --preinclude app_config.h-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="523"-o .\objects\driver_flash.o --omf_browse .\objects\driver_flash.crf --depend .\objects\driver_flash.d)
+I (..\code\app_config.h)(0x6780A429)
+I (..\..\..\..\components\driver\include\driver_flash.h)(0x649CDABE)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
+I (..\..\..\..\components\driver\include\driver_qspi.h)(0x649CDABE)
+I (..\..\..\..\components\modules\platform\include\plf.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\core_cm3.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_version.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_compiler.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_armcc.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\jump_table.h)(0x649CDABF)
+I (..\..\..\..\components\modules\common\include\co_math.h)(0x649CDABE)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)
+I (..\..\..\..\components\modules\sys\include\sys_utils.h)(0x649CDABF)
+I (..\..\..\..\components\modules\common\include\co_printf.h)(0x649CDABE)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x57F606B8)
+I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x57F606B8)
+F (..\..\..\..\components\driver\driver_timer.c)(0x66D6B72B)(--c99 -c --cpu Cortex-M3 -D__MICROLIB --li -g -O0 --apcs=interwork --split_sections -I ..\..\..\..\components\ble\include -I ..\..\..\..\components\driver\include -I ..\..\..\..\components\driver\drv_common -I ..\..\..\..\components\modules\os\include -I ..\..\..\..\components\modules\sys\include -I ..\..\..\..\components\modules\platform\include -I ..\..\..\..\components\modules\platform\include\cmsis -I ..\..\..\..\components\modules\common\include -I ..\..\..\..\components\modules\lowpow\include -I ..\..\..\..\components\modules\button -I ..\..\..\..\components\ble\include\gap -I ..\..\..\..\components\ble\include\gatt -I ..\..\..\..\components\ble\profiles\ble_simple_profile -I ..\code -I ..\..\..\..\components\modules\RTT --preinclude app_config.h-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="523"-o .\objects\driver_timer.o --omf_browse .\objects\driver_timer.crf --depend .\objects\driver_timer.d)
+I (..\code\app_config.h)(0x6780A429)
+I (..\..\..\..\components\driver\include\driver_timer.h)(0x66D6B79D)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
+I (..\..\..\..\components\modules\platform\include\plf.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\core_cm3.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_version.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_compiler.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_armcc.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\jump_table.h)(0x649CDABF)
+I (..\..\..\..\components\modules\common\include\co_math.h)(0x649CDABE)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)
+F (..\..\..\..\components\modules\platform\src\keil\boot_vectors.s)(0x649CDABF)(--cpu Cortex-M3 --li -g --apcs=interwork --pd "__MICROLIB SETA 1"-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include--pd "__UVISION_VERSION SETA 523"--list .\listings\boot_vectors.lst --xref -o .\objects\boot_vectors.o --depend .\objects\boot_vectors.d)
+F (..\..\..\..\components\ble\library\fr8000_stack.lib)(0x6447E61B)()
+F (..\..\..\..\components\modules\common\src\co_log.c)(0x66E0ED36)(--c99 -c --cpu Cortex-M3 -D__MICROLIB --li -g -O0 --apcs=interwork --split_sections -I ..\..\..\..\components\ble\include -I ..\..\..\..\components\driver\include -I ..\..\..\..\components\driver\drv_common -I ..\..\..\..\components\modules\os\include -I ..\..\..\..\components\modules\sys\include -I ..\..\..\..\components\modules\platform\include -I ..\..\..\..\components\modules\platform\include\cmsis -I ..\..\..\..\components\modules\common\include -I ..\..\..\..\components\modules\lowpow\include -I ..\..\..\..\components\modules\button -I ..\..\..\..\components\ble\include\gap -I ..\..\..\..\components\ble\include\gatt -I ..\..\..\..\components\ble\profiles\ble_simple_profile -I ..\code -I ..\..\..\..\components\modules\RTT --preinclude app_config.h-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="523"-o .\objects\co_log.o --omf_browse .\objects\co_log.crf --depend .\objects\co_log.d)
+I (..\code\app_config.h)(0x6780A429)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
+I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x57F606B8)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x57F606B8)
+I (..\..\..\..\components\modules\os\include\os_timer.h)(0x66D6B66B)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
+I (..\..\..\..\components\ble\include\gatt\gatt_api.h)(0x66D6B615)
+I (..\..\..\..\components\modules\os\include\os_msg_q.h)(0x66D6B66B)
+I (..\..\..\..\components\ble\include\gap\gap_api.h)(0x66D6B60F)
+I (..\..\..\..\components\ble\include\ble_stack.h)(0x649CDABE)
+I (..\..\..\..\components\driver\include\driver_system.h)(0x649CDABE)
+I (..\..\..\..\components\modules\platform\include\plf.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\core_cm3.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_version.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_compiler.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\cmsis\cmsis_armcc.h)(0x649CDABF)
+I (..\..\..\..\components\modules\platform\include\jump_table.h)(0x649CDABF)
+I (..\..\..\..\components\modules\common\include\co_math.h)(0x649CDABE)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)
+I (..\..\..\..\components\driver\include\driver_uart.h)(0x649CDABE)
+I (..\..\..\..\components\driver\drv_common\drv_common_types.h)(0x649CDABE)
+I (..\..\..\..\components\driver\include\driver_uart_ex.h)(0x66D6B7B3)
+I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x57F606B8)
+I (..\..\..\..\components\modules\common\include\co_log.h)(0x6760D714)
+I (..\..\..\..\components\modules\common\include\co_printf.h)(0x649CDABE)

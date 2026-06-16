@@ -10,9 +10,9 @@ export function pointsForCompletion(priority: string, estimateMinutes: number | 
   return base + prio + size;
 }
 
-export async function awardStart(taskId: string): Promise<number> {
+export async function awardStart(taskId: string, tenant?: { userId: string; boardId: string }): Promise<number> {
   await prisma.pointEvent.create({
-    data: { kind: "start", points: START_POINTS, taskId, note: "Started a task" },
+    data: { kind: "start", points: START_POINTS, taskId, note: "Started a task", userId: tenant?.userId, boardId: tenant?.boardId },
   });
   return START_POINTS;
 }
@@ -20,11 +20,12 @@ export async function awardStart(taskId: string): Promise<number> {
 export async function awardCompletion(
   taskId: string,
   priority: string,
-  estimateMinutes: number | null
+  estimateMinutes: number | null,
+  tenant?: { userId: string; boardId: string }
 ): Promise<number> {
   const points = pointsForCompletion(priority, estimateMinutes);
   await prisma.pointEvent.create({
-    data: { kind: "complete", points, taskId, note: "Completed a task" },
+    data: { kind: "complete", points, taskId, note: "Completed a task", userId: tenant?.userId, boardId: tenant?.boardId },
   });
   return points;
 }
@@ -40,14 +41,15 @@ function dayKey(d: Date): string {
   return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
 }
 
-export async function getStats() {
+export async function getStats(boardId?: string) {
   const startOfToday = new Date();
   startOfToday.setHours(0, 0, 0, 0);
+  const scope = boardId ? { boardId } : {};
 
   const [allEvents, todayEvents, doneToday] = await Promise.all([
-    prisma.pointEvent.findMany({ select: { points: true, kind: true, createdAt: true } }),
-    prisma.pointEvent.findMany({ where: { createdAt: { gte: startOfToday } }, select: { points: true } }),
-    prisma.task.count({ where: { status: "done", completedAt: { gte: startOfToday } } }),
+    prisma.pointEvent.findMany({ where: scope, select: { points: true, kind: true, createdAt: true } }),
+    prisma.pointEvent.findMany({ where: { ...scope, createdAt: { gte: startOfToday } }, select: { points: true } }),
+    prisma.task.count({ where: { ...scope, status: "done", completedAt: { gte: startOfToday } } }),
   ]);
 
   const xp = allEvents.reduce((s, e) => s + e.points, 0);

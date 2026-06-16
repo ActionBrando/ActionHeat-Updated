@@ -1,6 +1,9 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { prisma } from "./db";
 import { awardCompletion } from "./gamify";
+import { getTenant } from "./tenant";
+
+type Tenant = { userId: string; boardId: string };
 
 const MODEL = process.env.ANTHROPIC_MODEL || "claude-opus-4-8";
 
@@ -99,23 +102,29 @@ const tools: Anthropic.Tool[] = [
 // Tool executors
 // ---------------------------------------------------------------------------
 
-async function resolveAreaId(name?: string): Promise<string | null> {
+async function resolveAreaId(name: string | undefined, boardId: string): Promise<string | null> {
   if (!name) return null;
-  const areas = await prisma.area.findMany();
+  const areas = await prisma.area.findMany({ where: { boardId } });
   const match = areas.find((a) => a.name.toLowerCase() === name.toLowerCase());
   if (match) return match.id;
   // create on the fly so capture never silently drops an area
-  const created = await prisma.area.create({ data: { name: name.trim() } });
+  const created = await prisma.area.create({ data: { name: name.trim(), boardId } });
   return created.id;
 }
 
-async function resolveProjectId(name: string | undefined, areaId: string | null): Promise<string | null> {
+async function resolveProjectId(
+  name: string | undefined,
+  areaId: string | null,
+  boardId: string
+): Promise<string | null> {
   if (!name) return null;
   const existing = await prisma.project.findFirst({
-    where: { name: { equals: name, mode: "insensitive" } },
+    where: { boardId, name: { equals: name, mode: "insensitive" } },
   });
   if (existing) return existing.id;
-  const created = await prisma.project.create({ data: { name: name.trim(), areaId: areaId ?? undefined } });
+  const created = await prisma.project.create({
+    data: { name: name.trim(), areaId: areaId ?? undefined, boardId },
+  });
   return created.id;
 }
 
@@ -128,15 +137,16 @@ function parseDate(value?: string): Date | null | undefined {
 
 type ToolInput = Record<string, unknown>;
 
-async function executeTool(name: string, input: ToolInput, source: string): Promise<string> {
+async function executeTool(name: string, input: ToolInput, source: string, tenant: Tenant): Promise<string> {
+  const { boardId, userId } = tenant;
   switch (name) {
     case "list_areas": {
-      const areas = await prisma.area.findMany({ orderBy: { sortOrder: "asc" } });
+      const areas = await prisma.area.findMany({ where: { boardId }, orderBy: { sortOrder: "asc" } });
       return JSON.stringify(areas.map((a) => ({ id: a.id, name: a.name })));
     }
     case "create_task": {
-      const areaId = await resolveAreaId(input.area as string | undefined);
-      const projectId = await resolveProjectId(input.project as string | undefined, areaId);
+      const areaId = await resolveAreaId(input.area as string | undefined, boardId);
+      const projectId = await resolveProjectId(input.project as string | undefined, areaId, boardId);
       const task = await prisma.task.create({
         data: {
           title: String(input.title),
@@ -147,6 +157,8 @@ async function executeTool(name: string, input: ToolInput, source: string): Prom
           priority: (input.priority as string) || "normal",
           estimateMinutes: typeof input.estimateMinutes === "number" ? input.estimateMinutes : undefined,
           source,
+          boardId,
+          createdById: userId,
         },
         include: { area: true },
       });
@@ -162,7 +174,7 @@ async function executeTool(name: string, input: ToolInput, source: string): Prom
     }
     case "list_tasks": {
       const filter = (input.filter as string) || "open";
-      const areaId = await resolveAreaId(input.area as string | undefined);
+      const areaId = input.area ? await resolveAreaId(input.area as string, boardId) : null;
       const now = new Date();
       const startOfDay = new Date(now);
       startOfDay.setHours(0, 0, 0, 0);
@@ -171,7 +183,7 @@ async function executeTool(name: string, input: ToolInput, source: string): Prom
       const in7 = new Date(startOfDay);
       in7.setDate(in7.getDate() + 7);
 
-      const where: Record<string, unknown> = {};
+      const where: Record<string, unknown> = { boardId };
       if (areaId) where.areaId = areaId;
       if (filter === "today") {
         where.status = "open";
@@ -209,7 +221,7 @@ async function executeTool(name: string, input: ToolInput, source: string): Prom
       let id = input.id as string | undefined;
       if (!id && input.titleMatch) {
         const t = await prisma.task.findFirst({
-          where: { status: "open", title: { contains: String(input.titleMatch), mode: "insensitive" } },
+          where: { boardId, status: "open", title: { contains: String(input.titleMatch), mode: "insensitive" } },
           orderBy: { createdAt: "desc" },
         });
         id = t?.id;
@@ -219,12 +231,12 @@ async function executeTool(name: string, input: ToolInput, source: string): Prom
         where: { id },
         data: { status: "done", completedAt: new Date() },
       });
-      const points = await awardCompletion(task.id, task.priority, task.estimateMinutes);
+      const points = await awardCompletion(task.id, task.priority, task.estimateMinutes, tenant);
       return JSON.stringify({ ok: true, id: task.id, title: task.title, status: task.status, pointsAwarded: points });
     }
     case "update_task": {
       const id = String(input.id);
-      const areaId = input.area !== undefined ? await resolveAreaId(input.area as string) : undefined;
+      const areaId = input.area !== undefined ? await resolveAreaId(input.area as string, boardId) : undefined;
       const data: Record<string, unknown> = {};
       if (input.title !== undefined) data.title = input.title;
       if (input.notes !== undefined) data.notes = input.notes;
@@ -264,6 +276,7 @@ async function runAgent(
   source: string
 ): Promise<{ text: string; messages: Anthropic.MessageParam[] }> {
   const anthropic = client();
+  const tenant = await getTenant();
   const messages: Anthropic.MessageParam[] = [...history];
 
   for (let i = 0; i < 8; i++) {
@@ -291,7 +304,7 @@ async function runAgent(
       if (block.type === "tool_use") {
         let result: string;
         try {
-          result = await executeTool(block.name, block.input as ToolInput, source);
+          result = await executeTool(block.name, block.input as ToolInput, source, tenant);
         } catch (err) {
           result = JSON.stringify({ ok: false, error: (err as Error).message });
         }

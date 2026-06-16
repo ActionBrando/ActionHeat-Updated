@@ -2,17 +2,19 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { isAuthed } from "@/lib/auth";
 import { awardCompletion, awardStart } from "@/lib/gamify";
+import { getTenant } from "@/lib/tenant";
 
 export async function GET() {
   if (!(await isAuthed())) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const { boardId } = await getTenant();
 
   const [tasks, areas] = await Promise.all([
     prisma.task.findMany({
-      where: { status: "open" },
+      where: { boardId, status: "open" },
       include: { area: true, project: true },
       orderBy: [{ dueDate: "asc" }, { createdAt: "desc" }],
     }),
-    prisma.area.findMany({ orderBy: { sortOrder: "asc" } }),
+    prisma.area.findMany({ where: { boardId }, orderBy: { sortOrder: "asc" } }),
   ]);
 
   return NextResponse.json({ tasks, areas });
@@ -20,6 +22,7 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   if (!(await isAuthed())) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const { boardId, userId } = await getTenant();
   const body = await req.json();
   if (!body.title) return NextResponse.json({ error: "title required" }, { status: 400 });
 
@@ -31,6 +34,8 @@ export async function POST(req: NextRequest) {
       priority: body.priority || "normal",
       dueDate: body.dueDate ? new Date(body.dueDate) : null,
       source: "web",
+      boardId,
+      createdById: userId,
     },
     include: { area: true },
   });
@@ -39,6 +44,7 @@ export async function POST(req: NextRequest) {
 
 export async function PATCH(req: NextRequest) {
   if (!(await isAuthed())) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const tenant = await getTenant();
   const body = await req.json();
   if (!body.id) return NextResponse.json({ error: "id required" }, { status: 400 });
   const id = String(body.id);
@@ -47,7 +53,7 @@ export async function PATCH(req: NextRequest) {
   if (body.action === "start") {
     const existing = await prisma.task.findUnique({ where: { id } });
     let pointsAwarded = 0;
-    if (existing && !existing.startedAt) pointsAwarded = await awardStart(id);
+    if (existing && !existing.startedAt) pointsAwarded = await awardStart(id, tenant);
     const task = await prisma.task.update({
       where: { id },
       data: { startedAt: existing?.startedAt ?? new Date() },
@@ -72,7 +78,7 @@ export async function PATCH(req: NextRequest) {
 
   let pointsAwarded = 0;
   if (body.status === "done") {
-    pointsAwarded = await awardCompletion(task.id, task.priority, task.estimateMinutes);
+    pointsAwarded = await awardCompletion(task.id, task.priority, task.estimateMinutes, tenant);
   }
   return NextResponse.json({ task, pointsAwarded });
 }

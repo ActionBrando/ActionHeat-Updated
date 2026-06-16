@@ -7,15 +7,48 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// ---------------------------------------------------------------------------
+// Multi-tenant seam (Phase 1 uses one seeded User + one seeded Board; Phase 2
+// adds real auth, memberships, sharing, and leaderboards on top — see ROADMAP).
+// ---------------------------------------------------------------------------
+
+model User {
+  id        String       @id @default(cuid())
+  email     String       @unique
+  name      String?
+  createdAt DateTime     @default(now())
+  ownedBoards Board[]    @relation("BoardOwner")
+  tasks     Task[]       @relation("TaskCreator")
+  points    PointEvent[]
+}
+
+model Board {
+  id         String       @id @default(cuid())
+  name       String
+  slug       String       @unique
+  visibility String       @default("private") // private | team | public
+  ownerId    String?
+  owner      User?        @relation("BoardOwner", fields: [ownerId], references: [id])
+  createdAt  DateTime     @default(now())
+  areas      Area[]
+  projects   Project[]
+  tasks      Task[]
+  points     PointEvent[]
+}
+
 // A top-level life area: Business, Investment Properties, Personal/Life, etc.
 model Area {
   id        String    @id @default(cuid())
-  name      String    @unique
+  name      String
   color     String    @default("#64748b")
   sortOrder Int       @default(0)
+  boardId   String?
+  board     Board?    @relation(fields: [boardId], references: [id])
   createdAt DateTime  @default(now())
   tasks     Task[]
   projects  Project[]
+
+  @@unique([boardId, name])
 }
 
 // A project or initiative inside an area (e.g. a specific property, a deal).
@@ -26,6 +59,8 @@ model Project {
   status    String   @default("active") // active | archived
   areaId    String?
   area      Area?    @relation(fields: [areaId], references: [id])
+  boardId   String?
+  board     Board?   @relation(fields: [boardId], references: [id])
   createdAt DateTime @default(now())
   tasks     Task[]
 }
@@ -43,24 +78,35 @@ model Task {
   area            Area?     @relation(fields: [areaId], references: [id])
   projectId       String?
   project         Project?  @relation(fields: [projectId], references: [id])
+  boardId         String?
+  board           Board?    @relation(fields: [boardId], references: [id])
+  createdById     String?
+  createdBy       User?     @relation("TaskCreator", fields: [createdById], references: [id])
   source          String    @default("web") // web | chat | sms | email
   createdAt       DateTime  @default(now())
   completedAt     DateTime?
 
   @@index([status, dueDate])
   @@index([areaId])
+  @@index([boardId])
 }
 
 // Gamification ledger: every point award (starting or completing a task).
+// userId + boardId make per-user and per-board leaderboards a Phase 2 query.
 model PointEvent {
   id        String   @id @default(cuid())
   kind      String // start | complete | bonus
   points    Int
   taskId    String?
   note      String?
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  boardId   String?
+  board     Board?   @relation(fields: [boardId], references: [id])
   createdAt DateTime @default(now())
 
   @@index([createdAt])
+  @@index([boardId, userId])
 }
 
 // Raw log of everything captured from remote channels, plus what got created.

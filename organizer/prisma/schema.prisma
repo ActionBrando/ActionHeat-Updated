@@ -1,0 +1,81 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// A top-level life area: Business, Investment Properties, Personal/Life, etc.
+model Area {
+  id        String    @id @default(cuid())
+  name      String    @unique
+  color     String    @default("#64748b")
+  sortOrder Int       @default(0)
+  createdAt DateTime  @default(now())
+  tasks     Task[]
+  projects  Project[]
+}
+
+// A project or initiative inside an area (e.g. a specific property, a deal).
+model Project {
+  id        String   @id @default(cuid())
+  name      String
+  notes     String?
+  status    String   @default("active") // active | archived
+  areaId    String?
+  area      Area?    @relation(fields: [areaId], references: [id])
+  createdAt DateTime @default(now())
+  tasks     Task[]
+}
+
+model Task {
+  id              String    @id @default(cuid())
+  title           String
+  notes           String?
+  status          String    @default("open") // open | done
+  priority        String    @default("normal") // low | normal | high | urgent
+  dueDate         DateTime?
+  estimateMinutes Int? // assistant's time estimate, for planning + initiation
+  startedAt       DateTime? // set when the user "starts" (initiation reward)
+  areaId          String?
+  area            Area?     @relation(fields: [areaId], references: [id])
+  projectId       String?
+  project         Project?  @relation(fields: [projectId], references: [id])
+  source          String    @default("web") // web | chat | sms | email
+  createdAt       DateTime  @default(now())
+  completedAt     DateTime?
+
+  @@index([status, dueDate])
+  @@index([areaId])
+}
+
+// Gamification ledger: every point award (starting or completing a task).
+model PointEvent {
+  id        String   @id @default(cuid())
+  kind      String // start | complete | bonus
+  points    Int
+  taskId    String?
+  note      String?
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+// Raw log of everything captured from remote channels, plus what got created.
+model CaptureLog {
+  id        String   @id @default(cuid())
+  channel   String // sms | email | quick
+  rawText   String
+  fromAddr  String?
+  summary   String? // human-readable summary of created items
+  createdAt DateTime @default(now())
+}
+
+model ChatMessage {
+  id        String   @id @default(cuid())
+  role      String // user | assistant
+  content   String
+  createdAt DateTime @default(now())
+}

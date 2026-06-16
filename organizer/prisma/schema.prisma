@@ -78,6 +78,10 @@ model Task {
   area            Area?     @relation(fields: [areaId], references: [id])
   projectId       String?
   project         Project?  @relation(fields: [projectId], references: [id])
+  parentId        String? // sub-tasks: a task broken into focus-block chunks
+  parent          Task?     @relation("Subtasks", fields: [parentId], references: [id], onDelete: Cascade)
+  children        Task[]    @relation("Subtasks")
+  sortOrder       Int       @default(0)
   boardId         String?
   board           Board?    @relation(fields: [boardId], references: [id])
   createdById     String?
@@ -89,6 +93,7 @@ model Task {
   @@index([status, dueDate])
   @@index([areaId])
   @@index([boardId])
+  @@index([parentId])
 }
 
 // Gamification ledger: every point award (starting or completing a task).

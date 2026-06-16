@@ -10,8 +10,16 @@ export async function GET() {
 
   const [tasks, areas] = await Promise.all([
     prisma.task.findMany({
-      where: { boardId, status: "open" },
-      include: { area: true, project: true },
+      where: { boardId, status: "open", parentId: null },
+      include: {
+        area: true,
+        project: true,
+        children: {
+          where: { status: "open" },
+          include: { area: true },
+          orderBy: { sortOrder: "asc" },
+        },
+      },
       orderBy: [{ dueDate: "asc" }, { createdAt: "desc" }],
     }),
     prisma.area.findMany({ where: { boardId }, orderBy: { sortOrder: "asc" } }),

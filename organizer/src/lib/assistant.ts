@@ -52,6 +52,32 @@ const tools: Anthropic.Tool[] = [
     },
   },
   {
+    name: "add_subtasks",
+    description:
+      "Break a parent task into an ordered list of concrete, single-sitting sub-tasks. Each sub-task MUST be sized to a focus block of exactly 15, 30, 45, or 60 minutes. Prefer 15- and 30-minute chunks; only use 60 when a step genuinely can't be split. Order them so the user can start at the top.",
+    input_schema: {
+      type: "object",
+      properties: {
+        parentId: { type: "string", description: "The id of the task being broken down." },
+        subtasks: {
+          type: "array",
+          description: "2-6 ordered sub-tasks.",
+          items: {
+            type: "object",
+            properties: {
+              title: { type: "string", description: "Concrete action, e.g. 'Draft the lease renewal email'." },
+              estimateMinutes: { type: "integer", enum: [15, 30, 45, 60] },
+            },
+            required: ["title", "estimateMinutes"],
+            additionalProperties: false,
+          },
+        },
+      },
+      required: ["parentId", "subtasks"],
+      additionalProperties: false,
+    },
+  },
+  {
     name: "list_tasks",
     description: "List tasks, optionally filtered. Use this to answer questions about what is due or outstanding.",
     input_schema: {
@@ -172,6 +198,38 @@ async function executeTool(name: string, input: ToolInput, source: string, tenan
         estimateMinutes: task.estimateMinutes,
       });
     }
+    case "add_subtasks": {
+      const parentId = String(input.parentId);
+      const parent = await prisma.task.findFirst({ where: { id: parentId, boardId } });
+      if (!parent) return JSON.stringify({ ok: false, error: "Parent task not found." });
+      const list = (Array.isArray(input.subtasks) ? input.subtasks : []) as {
+        title: string;
+        estimateMinutes: number;
+      }[];
+      const allowed = [15, 30, 45, 60];
+      const created = [];
+      for (let i = 0; i < list.length; i++) {
+        const s = list[i];
+        const est = allowed.includes(s.estimateMinutes) ? s.estimateMinutes : 30;
+        const child = await prisma.task.create({
+          data: {
+            title: String(s.title),
+            estimateMinutes: est,
+            parentId,
+            areaId: parent.areaId,
+            projectId: parent.projectId,
+            priority: parent.priority,
+            sortOrder: i,
+            boardId,
+            createdById: userId,
+            source,
+          },
+        });
+        created.push({ id: child.id, title: child.title, estimateMinutes: est });
+      }
+      const total = created.reduce((sum, c) => sum + c.estimateMinutes, 0);
+      return JSON.stringify({ ok: true, parentId, count: created.length, totalMinutes: total, subtasks: created });
+    }
     case "list_tasks": {
       const filter = (input.filter as string) || "open";
       const areaId = input.area ? await resolveAreaId(input.area as string, boardId) : null;
@@ -262,7 +320,7 @@ function systemPrompt(extra: string): string {
     "You are the user's personal daily organizer assistant and a supportive ADHD coach. You help manage tasks across their business, investment properties, and personal life.",
     `The current date/time is ${today} (UTC). Resolve relative dates against this.`,
     "When the user describes something to do, create a task for it using the create_task tool. Infer the area and a due date when implied, and ALWAYS include a realistic time estimate (estimateMinutes).",
-    "ADHD support: keep tasks small and concrete. If something would take more than ~45 minutes or has multiple steps, break it into smaller sub-tasks the user can start in one sitting. Frame the very first step as something tiny and unambiguous to lower the barrier to starting.",
+    "ADHD support: keep tasks small and concrete. If something would take more than ~45 minutes or has multiple steps, use add_subtasks to break it into an ordered list of focus-block chunks (15/30/45/60 minutes each), favoring 15- and 30-minute pieces. Frame the very first step as something tiny and unambiguous to lower the barrier to starting.",
     "Keep replies short, warm, and encouraging — confirm what you did in one or two sentences, and celebrate progress. Do not narrate tool calls or lecture.",
     extra,
   ]
@@ -354,6 +412,30 @@ export async function captureText(
   });
 
   return text || "Got it.";
+}
+
+/**
+ * Break a single existing task into focus-block sub-tasks (15/30/45/60 min).
+ * Used by the dashboard "Break down" button.
+ */
+export async function breakdownTask(taskId: string): Promise<string> {
+  const task = await prisma.task.findUnique({ where: { id: taskId }, include: { area: true } });
+  if (!task) return "Task not found.";
+
+  const extra =
+    "Break the task below into an ordered list of concrete sub-tasks and record them with the add_subtasks tool. Each sub-task must be a single-sitting action sized to a 15, 30, 45, or 60-minute focus block (favor 15/30). Aim for 2-6 steps, ordered so the user can start at the top. Make the first step tiny. Then reply with one short encouraging sentence.";
+
+  const ctx = [
+    `Task to break down (id: ${task.id}): "${task.title}"`,
+    task.area ? `Area: ${task.area.name}` : "",
+    task.estimateMinutes ? `Rough total estimate: ${task.estimateMinutes} min` : "",
+    task.notes ? `Notes: ${task.notes}` : "",
+  ]
+    .filter(Boolean)
+    .join("\n");
+
+  const { text } = await runAgent(systemPrompt(extra), [{ role: "user", content: ctx }], "chat");
+  return text || "Broke it into smaller steps for you.";
 }
 
 /**

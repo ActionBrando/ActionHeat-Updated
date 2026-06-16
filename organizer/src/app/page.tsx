@@ -14,6 +14,7 @@ type Task = {
   estimateMinutes: number | null;
   startedAt: string | null;
   area: Area | null;
+  children?: Task[];
 };
 type Stats = {
   xp: number;
@@ -62,6 +63,7 @@ export default function Dashboard() {
   const [focus, setFocus] = useState("");
   const [focusBusy, setFocusBusy] = useState(false);
   const [flash, setFlash] = useState("");
+  const [breakingId, setBreakingId] = useState<string | null>(null);
 
   const loadStats = useCallback(async () => {
     const res = await fetch("/api/stats");
@@ -90,7 +92,6 @@ export default function Dashboard() {
   }
 
   async function complete(id: string) {
-    setTasks((t) => t.filter((x) => x.id !== id));
     const res = await fetch("/api/tasks", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
@@ -100,11 +101,17 @@ export default function Dashboard() {
       const { pointsAwarded } = await res.json();
       celebrate(pointsAwarded, "done! 🎉");
     }
-    loadStats();
+    load();
   }
 
   async function start(id: string) {
-    setTasks((t) => t.map((x) => (x.id === id ? { ...x, startedAt: new Date().toISOString() } : x)));
+    setTasks((t) =>
+      t.map((x) =>
+        x.id === id
+          ? { ...x, startedAt: new Date().toISOString() }
+          : { ...x, children: x.children?.map((c) => (c.id === id ? { ...c, startedAt: new Date().toISOString() } : c)) }
+      )
+    );
     const res = await fetch("/api/tasks", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
@@ -115,6 +122,17 @@ export default function Dashboard() {
       celebrate(pointsAwarded, "started — that's the hard part! 💪");
     }
     loadStats();
+  }
+
+  async function breakDown(id: string) {
+    setBreakingId(id);
+    const res = await fetch("/api/breakdown", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ taskId: id }),
+    });
+    setBreakingId(null);
+    if (res.ok) await load();
   }
 
   async function addQuick(e: React.FormEvent) {
@@ -160,6 +178,36 @@ export default function Dashboard() {
   );
   const noDate = tasks.filter((t) => !t.dueDate);
 
+  const StartOrFocus = ({ t }: { t: Task }) =>
+    t.startedAt ? (
+      <span className="shrink-0 text-xs font-medium text-blue-600">▶ focusing</span>
+    ) : (
+      <button
+        onClick={() => start(t.id)}
+        className="shrink-0 rounded-full bg-blue-50 px-2.5 py-1 text-xs font-medium text-blue-700 hover:bg-blue-100"
+        title="Start now (+5 XP for initiating)"
+      >
+        Start
+      </button>
+    );
+
+  const ChunkRow = ({ c }: { c: Task }) => (
+    <li className="flex items-center gap-2 rounded-md bg-slate-50 px-3 py-1.5">
+      <button
+        onClick={() => complete(c.id)}
+        aria-label="Complete sub-task"
+        className="h-4 w-4 shrink-0 rounded-full border-2 border-slate-300 hover:border-green-500 hover:bg-green-50"
+      />
+      <span className="min-w-0 flex-1 truncate text-sm text-slate-700">{c.title}</span>
+      {c.estimateMinutes && (
+        <span className="shrink-0 rounded-full bg-indigo-100 px-2 py-0.5 text-xs font-semibold text-indigo-700">
+          {estLabel(c.estimateMinutes)}
+        </span>
+      )}
+      <StartOrFocus t={c} />
+    </li>
+  );
+
   const Section = ({ title, items, accent }: { title: string; items: Task[]; accent?: string }) => {
     if (items.length === 0) return null;
     return (
@@ -168,50 +216,63 @@ export default function Dashboard() {
           {title} <span className="text-slate-400">({items.length})</span>
         </h2>
         <ul className="space-y-1">
-          {items.map((t) => (
-            <li key={t.id} className="flex items-center gap-3 rounded-lg border border-slate-200 bg-white px-3 py-2">
-              <button
-                onClick={() => complete(t.id)}
-                aria-label="Complete"
-                className="h-5 w-5 shrink-0 rounded-full border-2 border-slate-300 hover:border-green-500 hover:bg-green-50"
-              />
-              <div className="min-w-0 flex-1">
-                <div className="truncate text-sm">{t.title}</div>
-                <div className="flex items-center gap-2 text-xs text-slate-400">
-                  {t.estimateMinutes ? <span>{estLabel(t.estimateMinutes)}</span> : null}
-                  {t.notes && <span className="truncate">{t.notes}</span>}
+          {items.map((t) => {
+            const kids = t.children ?? [];
+            return (
+              <li key={t.id} className="rounded-lg border border-slate-200 bg-white px-3 py-2">
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => complete(t.id)}
+                    aria-label="Complete"
+                    className="h-5 w-5 shrink-0 rounded-full border-2 border-slate-300 hover:border-green-500 hover:bg-green-50"
+                  />
+                  <div className="min-w-0 flex-1">
+                    <div className="truncate text-sm">{t.title}</div>
+                    <div className="flex items-center gap-2 text-xs text-slate-400">
+                      {t.estimateMinutes ? <span>{estLabel(t.estimateMinutes)}</span> : null}
+                      {kids.length > 0 && <span>· {kids.length} steps</span>}
+                      {t.notes && <span className="truncate">{t.notes}</span>}
+                    </div>
+                  </div>
+                  {kids.length === 0 && (
+                    <button
+                      onClick={() => breakDown(t.id)}
+                      disabled={breakingId === t.id}
+                      className="shrink-0 rounded-full bg-indigo-50 px-2.5 py-1 text-xs font-medium text-indigo-700 hover:bg-indigo-100 disabled:opacity-50"
+                      title="Let Claude split this into 15–60 min chunks"
+                    >
+                      {breakingId === t.id ? "Splitting…" : "Break down"}
+                    </button>
+                  )}
+                  <StartOrFocus t={t} />
+                  {t.priority === "urgent" && <span className="text-xs font-semibold text-red-600">!!</span>}
+                  {t.priority === "high" && <span className="text-xs font-semibold text-orange-500">!</span>}
+                  {t.area && (
+                    <span
+                      className="shrink-0 rounded-full px-2 py-0.5 text-xs font-medium text-white"
+                      style={{ backgroundColor: t.area.color }}
+                    >
+                      {t.area.name}
+                    </span>
+                  )}
+                  {t.dueDate && (
+                    <span
+                      className={`shrink-0 text-xs ${new Date(t.dueDate) < today ? "font-semibold text-red-600" : "text-slate-500"}`}
+                    >
+                      {dueLabel(t.dueDate)}
+                    </span>
+                  )}
                 </div>
-              </div>
-              {t.startedAt ? (
-                <span className="shrink-0 text-xs font-medium text-blue-600">▶ focusing</span>
-              ) : (
-                <button
-                  onClick={() => start(t.id)}
-                  className="shrink-0 rounded-full bg-blue-50 px-2.5 py-1 text-xs font-medium text-blue-700 hover:bg-blue-100"
-                  title="Start now (+5 XP for initiating)"
-                >
-                  Start
-                </button>
-              )}
-              {t.priority === "urgent" && <span className="text-xs font-semibold text-red-600">!!</span>}
-              {t.priority === "high" && <span className="text-xs font-semibold text-orange-500">!</span>}
-              {t.area && (
-                <span
-                  className="shrink-0 rounded-full px-2 py-0.5 text-xs font-medium text-white"
-                  style={{ backgroundColor: t.area.color }}
-                >
-                  {t.area.name}
-                </span>
-              )}
-              {t.dueDate && (
-                <span
-                  className={`shrink-0 text-xs ${new Date(t.dueDate) < today ? "font-semibold text-red-600" : "text-slate-500"}`}
-                >
-                  {dueLabel(t.dueDate)}
-                </span>
-              )}
-            </li>
-          ))}
+                {kids.length > 0 && (
+                  <ul className="mt-2 space-y-1 border-l-2 border-indigo-100 pl-3">
+                    {kids.map((c) => (
+                      <ChunkRow key={c.id} c={c} />
+                    ))}
+                  </ul>
+                )}
+              </li>
+            );
+          })}
         </ul>
       </section>
     );
